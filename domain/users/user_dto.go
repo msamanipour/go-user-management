@@ -8,12 +8,13 @@ import (
 
 type User struct {
 	Id        int64     `json:"id"`
-	Name      string    `json:"name" gorm:"name" form:"name""`
+	Name      string    `json:"name" gorm:"name" form:"name"`
 	Family    string    `json:"family" gorm:"family" form:"family"`
 	Username  string    `json:"username" gorm:"username" form:"username"`
 	CreatedAt time.Time `json:"created_at" gorm:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" gorm:"updated_at"`
 	Password  string    `json:"password" gorm:"password" form:"password"`
+	Role      string    `json:"role" gorm:"role" form:"role"`
 }
 
 type Users []User

@@ -21,7 +21,6 @@ func mapUrls() {
 		authed.GET("/dashboard", users_controllers.Dashboard)
 		authed.GET("users/new", users_controllers.New)
 		authed.POST("users/new", users_controllers.NewPost)
-		//authed.GET("users/edit/:user_id", users_controllers.Edit)
-		authed.GET("users/logout", users_controllers.Logout)
+		authed.GET("users/edit/:user_id", users_controllers.Edit)
 	}
 }

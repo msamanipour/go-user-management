@@ -14,7 +14,7 @@ var (
 
 func init() {
 	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		config.MysqlUsername, config.MysqlPassword, config.MySqlHost, config.MySqlTable,
+		config.MysqlUsername, config.MysqlPassword, config.MySqlHost, config.MySqlScheme,
 	)
 	var err error
 	Client, err = gorm.Open(mysql.Open(dataSourceName), &gorm.Config{})

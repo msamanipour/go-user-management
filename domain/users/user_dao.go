@@ -3,6 +3,7 @@ package users
 import (
 	"go-apk-users/app/config"
 	"go-apk-users/datasources/mysql/users_db"
+	"go-apk-users/utils/authority_utils"
 	"go-apk-users/utils/errors"
 	"go-apk-users/utils/logger"
 	"go-apk-users/utils/mysql_utils"
@@ -18,16 +19,24 @@ func (u *User) Login() *errors.RestErr {
 }
 
 func (u *User) Save() *errors.RestErr {
-	result := users_db.Client.Create(&u)
+	result := users_db.Client.Select("id", "name", "family", "username", "created_at", "updated_at", "password").Create(&u)
+	err := authority_utils.Auth.AssignRole(uint(u.Id), u.Role)
 	if result.Error != nil {
 		logger.Error("error in user save", result.Error)
 		return mysql_utils.ParseErrors(result.Error)
+	}
+	if err != nil {
+		logger.Error("error in assign role", err)
+		return errors.NewInternalServerError(config.MessageErr)
 	}
 	return errors.NewSuccessMessage(config.MessageSuccessCreateUser)
 }
 
 func (u *User) Get() *errors.RestErr {
-
+	result := users_db.Client.Find(&u)
+	if result.Error != nil || result.RowsAffected <= 0 {
+		return errors.NewNotFoundError(config.MessageUserNotFound)
+	}
 	return nil
 }
 
