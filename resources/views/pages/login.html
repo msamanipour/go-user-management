@@ -1,0 +1,18 @@
+{{define "head"}}{{end}}
+
+{{define "content"}}
+<div class="container">
+    <div class="mx-auto">
+        <form class="form-signin" method="post" action="">
+            <img class="mb-4" src="/static/images/logo.png" width="100%" alt="">
+            {{ include "partials/alerts" }}
+            <label for="username">نام کاربری</label>
+            <input type="text" id="username" name="username" class="form-control" required autofocus>
+            <label for="password">رمزعبور</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="********" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">ورود</button>
+        </form>
+    </div>
+</div>
+
+{{end}}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>سامانه مدیریت کاربران - {{.title}}</title>
+    {{include "layouts/head" }}
+</head>
+<body>
+    {{include "partials/navbar"}}
+    {{template "content" .}}
+    {{include "layouts/footer"}}
+</body>
+<script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/feather.min.js"></script>
+<script src="/static/js/form-validation.js"></script>
+</html>

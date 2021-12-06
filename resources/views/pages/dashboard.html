@@ -1,0 +1,48 @@
+{{define "head"}}{{end}}
+
+{{define "content"}}
+
+<div class="container-fluid mb-5">
+    <div class="row">
+        {{ include "partials/rightMenu" }}
+        <main role="main" class="col-md-9 mr-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">داشبورد</h1>
+            </div>
+            <h2 class="mb-4">آخرین کاربرها</h2>
+            {{ include "partials/alerts" }}
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>نام</th>
+                        <th>نام خانوادگی</th>
+                        <th>نام کاربری</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{range $index , $val := .result}}
+                    <tr>
+                        <td>{{ $val.Id }}</td>
+                        <td>{{ $val.Name }}</td>
+                        <td>{{ $val.Family }}</td>
+                        <td>{{ $val.Username }}</td>
+                        <td>فعال</td>
+                        <td>
+                            <a href="/users/edit/{{ $val.Id }}"><span data-feather="edit" class="ml-2"></span></a>
+                            <a href="/users/delete/{{ $val.Id }}"><span data-feather="trash"></span></a>
+                        </td>
+                    </tr>
+                    {{end}}
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
+{{end}}
