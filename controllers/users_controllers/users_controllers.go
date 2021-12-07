@@ -7,7 +7,6 @@ import (
 	"go-apk-users/domain/users"
 	"go-apk-users/services"
 	"go-apk-users/utils/authority_utils"
-	"go-apk-users/utils/crypto_utils"
 	"go-apk-users/utils/errors"
 	"go-apk-users/utils/logger"
 	"go-apk-users/utils/session_utils"
@@ -39,7 +38,7 @@ func LoginPost(c *gin.Context) {
 	result, err := services.UsersService.GetLogin(username, password)
 	if err == nil {
 		session_utils.SetSession(c.Writer, c.Request, config.LoginSessionName, "/", uuid.NewV4().String())
-		session_utils.SetSession(c.Writer, c.Request, "session_info", "/", crypto_utils.Base64Encode(strconv.FormatInt(result.Id, 10)))
+		//session_utils.SetSession(c.Writer, c.Request, "session_info", "/", crypto_utils.Base64Encode(strconv.FormatInt(result.Id, 10)))
 		c.Redirect(http.StatusFound, config.DashboardUrl)
 	} else {
 		c.HTML(http.StatusOK, "pages/login", gin.H{
@@ -48,6 +47,11 @@ func LoginPost(c *gin.Context) {
 			"err":    err,
 		})
 	}
+}
+
+func Logout(c *gin.Context) {
+	session_utils.ClearSession(c.Writer, config.LoginSessionName)
+	c.Redirect(http.StatusFound, config.LoginUrl)
 }
 
 func Dashboard(c *gin.Context) {

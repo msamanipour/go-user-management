@@ -19,6 +19,15 @@ func SetSession(w http.ResponseWriter, req *http.Request, sName string, path str
 	http.SetCookie(w, c)
 }
 
+func ClearSession(w http.ResponseWriter, sName string) {
+	c := &http.Cookie{
+		Name:   sName,
+		Value:  "",
+		MaxAge: -1,
+	}
+	http.SetCookie(w, c)
+}
+
 func CheckSession(req *http.Request, sName string) bool {
 	t, _ := req.Cookie(sName)
 	if t == nil {

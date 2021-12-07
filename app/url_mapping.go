@@ -18,6 +18,7 @@ func mapUrls() {
 	authed := router.Group("/")
 	authed.Use(auth.Logged)
 	{
+		authed.GET("/logout", users_controllers.Logout)
 		authed.GET("/dashboard", users_controllers.Dashboard)
 		authed.GET("users/new", users_controllers.New)
 		authed.POST("users/new", users_controllers.NewPost)
