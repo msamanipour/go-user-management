@@ -17,6 +17,7 @@ type usersServiceInterface interface {
 	CreateUser(users.User) (*users.User, *errors.RestErr)
 	GetUser(int64) (*users.User, *errors.RestErr)
 	GetUsers() ([]users.User, *errors.RestErr)
+	EditUser(user users.User) *errors.RestErr
 }
 
 func (s *usersService) GetLogin(username string, password string) (*users.User, *errors.RestErr) {
@@ -24,7 +25,7 @@ func (s *usersService) GetLogin(username string, password string) (*users.User, 
 		Username: username,
 		Password: crypto_utils.GetMd5(password),
 	}
-	if err := result.Validate(); err != nil {
+	if err := result.Validate(false); err != nil {
 		return nil, err
 	}
 	if err := result.Login(); err != nil {
@@ -34,7 +35,7 @@ func (s *usersService) GetLogin(username string, password string) (*users.User, 
 }
 
 func (s *usersService) CreateUser(user users.User) (*users.User, *errors.RestErr) {
-	if err := user.Validate(); err != nil {
+	if err := user.Validate(false); err != nil {
 		return nil, err
 	}
 	user.Password = crypto_utils.GetMd5(user.Password)
@@ -53,4 +54,18 @@ func (s *usersService) GetUser(userId int64) (*users.User, *errors.RestErr) {
 func (s *usersService) GetUsers() ([]users.User, *errors.RestErr) {
 	dao := &users.User{}
 	return dao.AllUsers()
+}
+
+func (s *usersService) EditUser(user users.User) *errors.RestErr {
+	if user.Password != "" {
+		user.Password = crypto_utils.GetMd5(user.Password)
+	}
+	if err := user.Validate(true); err != nil {
+		return err
+	}
+
+	if err := user.Update(); err != nil {
+		return err
+	}
+	return nil
 }

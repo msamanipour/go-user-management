@@ -2,10 +2,12 @@ package users_controllers
 
 import (
 	"github.com/gin-gonic/gin"
+	uuid "github.com/satori/go.uuid"
 	"go-apk-users/app/config"
 	"go-apk-users/domain/users"
 	"go-apk-users/services"
 	"go-apk-users/utils/authority_utils"
+	"go-apk-users/utils/crypto_utils"
 	"go-apk-users/utils/errors"
 	"go-apk-users/utils/logger"
 	"go-apk-users/utils/session_utils"
@@ -32,7 +34,8 @@ func LoginPost(c *gin.Context) {
 	password := c.PostForm("password")
 	result, err := services.UsersService.GetLogin(username, password)
 	if err == nil {
-		session_utils.SetSession(c.Writer, c.Request, config.LoginSessionName, "/")
+		session_utils.SetSession(c.Writer, c.Request, config.LoginSessionName, "/", uuid.NewV4().String())
+		session_utils.SetSession(c.Writer, c.Request, "session_info", "/", crypto_utils.Base64Encode(strconv.FormatInt(result.Id, 10)))
 	}
 	c.HTML(http.StatusOK, "pages/login", gin.H{
 		"title":  config.TitleLogin,
@@ -78,26 +81,24 @@ func Edit(c *gin.Context) {
 	userId, _ := getUserId(c.Param("user_id"))
 	user, err := services.UsersService.GetUser(userId)
 	c.HTML(http.StatusOK, "pages/users/edit", gin.H{
-		"title":  config.TitleAddUser,
-		"result": user,
-		"err":    err,
+		"title":   config.TitleAddUser,
+		"result":  user,
+		"err":     err,
+		"user_id": uint(userId),
 	})
-
 }
 
 func EditPost(c *gin.Context) {
-	//var user users.User
-	//if err := c.ShouldBindJSON(&user); err != nil {
-	//	restErr := errors.NewBadRequestError("invalid json body")
-	//	c.JSON(restErr.Status, restErr.Message)
-	//	return
-	//}
-	//isPartial := c.Request.Method == http.MethodPatch
-	//user.Id = userId
-	//result, err := services.UsersService.UpdateUser(isPartial, user)
-	//if err != nil {
-	//	c.JSON(err.Status, err)
-	//	return
-	//}
-	//c.JSON(http.StatusOK, result.Marshal(c.GetHeader("X-Public") == "true"))
+	var user users.User
+	if err := c.ShouldBind(&user); err != nil {
+		logger.Error(config.MessageBadFormRequest, err)
+		return
+	}
+	err := services.UsersService.EditUser(user)
+	c.HTML(http.StatusOK, "pages/users/edit", gin.H{
+		"title":   config.TitleEditUser,
+		"result":  user,
+		"err":     err,
+		"user_id": uint(user.Id),
+	})
 }

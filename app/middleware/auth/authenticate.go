@@ -8,13 +8,13 @@ import (
 )
 
 func Logged(c *gin.Context) {
-	if res := session_utils.CheckLogin(c.Request, "session_token"); res == false {
+	if res := session_utils.CheckSession(c.Request, "session_token"); res == false {
 		c.Redirect(http.StatusFound, config.LoginUrl)
 	}
 	c.Next()
 }
 func Guest(c *gin.Context) {
-	if res := session_utils.CheckLogin(c.Request, "session_token"); res == true {
+	if res := session_utils.CheckSession(c.Request, "session_token"); res == true {
 		c.Redirect(http.StatusFound, config.DashboardUrl)
 	}
 	c.Next()

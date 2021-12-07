@@ -48,3 +48,25 @@ func (u *User) AllUsers() ([]User, *errors.RestErr) {
 	}
 	return users, nil
 }
+
+func (u *User) Update() *errors.RestErr {
+	result := users_db.Client.Select("name", "family", "username", "password").Updates(&u)
+	if result.Error != nil {
+		return errors.NewNotFoundError(config.MessageErr)
+	}
+	oldRole, err := authority_utils.Auth.GetUserRoles(uint(u.Id))
+	if err != nil {
+		return nil
+	}
+	reErr := authority_utils.Auth.RevokeRole(uint(u.Id), oldRole[0])
+	if reErr != nil {
+		logger.Error("error in revoke role", reErr)
+		return errors.NewInternalServerError(config.MessageErr)
+	}
+	sErr := authority_utils.Auth.AssignRole(uint(u.Id), u.Role)
+	if sErr != nil {
+		logger.Error("error in assign role", sErr)
+		return errors.NewInternalServerError(config.MessageErr)
+	}
+	return errors.NewSuccessMessage(config.MessageSuccessEditUser)
+}

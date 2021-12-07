@@ -1,3 +1,31 @@
+@font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb(FaNum)_Bold.eot?#') format('eot'),
+    url('../fonts/IRANSansWeb(FaNum)_Bold.woff2') format('woff2'),
+    url('../fonts/IRANSansWeb(FaNum)_Bold.woff') format('woff');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb(FaNum)_Light.eot?#') format('eot'),
+    url('../fonts/IRANSansWeb(FaNum)_Light.woff2') format('woff2'),
+    url('../fonts/IRANSansWeb(FaNum)_Light.woff') format('woff');
+    font-weight: 200;
+}
+@font-face {
+    font-family: 'IRANSans';
+    src: url('../fonts/IRANSansWeb(FaNum).eot?#') format('eot'),
+    url('../fonts/IRANSansWeb(FaNum).woff2') format('woff2'),
+    url('../fonts/IRANSansWeb(FaNum).woff') format('woff');
+    font-weight: normal;
+}
+html , body {
+    font-family: "IRANSans","SF UI Text", sans-serif;
+    font-size: 0.920rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
 .form-signin {
     width: 100%;
     max-width: 330px;
