@@ -1,70 +1,71 @@
 {{define "head"}}{{end}}
 
 {{define "content"}}
-<div class="container-fluid mb-5">
-    <div class="row">
-        {{ include "partials/rightMenu" }}
-        <main role="main" class="col-md-9 mr-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">افزودن کاربر جدید</h1>
-            </div>
-            {{ include "partials/alerts" }}
-            <form class="needs-validation" method="post" novalidate>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="name">نام</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="" value="" required>
-                        <div class="invalid-feedback">
-                            نام الزامی است
+<div class="body flex-grow-1 px-3">
+    <div class="container-lg">
+        <div class="card mb-4">
+            <div class="card-header">افزودن کاربر</div>
+            <div class="card-body">
+                {{ include "partials/alerts" }}
+                <form class="needs-validation" method="post" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">نام</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="" value=""
+                                   required>
+                            <div class="invalid-feedback">
+                                نام الزامی است
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="family" class="form-label">نام خانوادگی</label>
+                            <input type="text" class="form-control" id="family" name="family" placeholder="" value=""
+                                   required>
+                            <div class="invalid-feedback">
+                                نام خانوادگی الزامی است
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="family">نام خانوادگی</label>
-                        <input type="text" class="form-control" id="family" name="family" placeholder="" value=""
-                               required>
-                        <div class="invalid-feedback">
-                            نام خانوادگی الزامی است
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="username">نام کاربری</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="" value=""
-                               required>
-                        <div class="invalid-feedback">
-                            نام کاربری الزامی است
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="username" class="form-label">نام کاربری</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder=""
+                                   value=""
+                                   required>
+                            <div class="invalid-feedback">
+                                نام کاربری الزامی است
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="password" class="form-label">رمزعبور</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder=""
+                                   value="" required>
+                            <div class="invalid-feedback">
+                                رمزعبور الزامی است | باید حداقل 8 رقم باشد
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="password">رمزعبور</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder=""
-                               value="" required>
-                        <div class="invalid-feedback">
-                            رمزعبور الزامی است | باید حداقل 8 رقم باشد
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="role">سطح دسترسی</label>
-                        <select class="custom-select d-block w-100" id="role" name="role" required>
-                            <option value="">انتخاب کنید</option>
-                            {{range $index , $val := .result}}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="role" class="form-label">سطح دسترسی</label>
+                            <select class="form-select d-block w-100" id="role" name="role" required>
+                                <option value="">انتخاب کنید</option>
+                                {{range $index , $val := .result}}
                                 <option value="{{$val}}">{{$val}}</option>
-                            {{ end }}
-                        </select>
-                        <div class="invalid-feedback">
-                            سطح دسترسی را انتخاب کنید
+                                {{ end }}
+                            </select>
+                            <div class="invalid-feedback">
+                                سطح دسترسی را انتخاب کنید
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">ثبت کاربر</button>
-            </form>
-        </main>
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">ثبت کاربر</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {{end}}

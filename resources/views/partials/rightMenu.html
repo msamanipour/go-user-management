@@ -1,36 +1,17 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-    <div class="sidebar-sticky pt-3">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href="/dashboard">
-                    <span data-feather="home"></span>
-                    داشبورد
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="users"></span>
-                    کاربران
-                </a>
-                <ul class="mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link p-1" href="#">
-                            مدیریت کاربران
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link p-1" href="/users/new">
-                            افزودن جدید
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="users/profile">
-                    <span data-feather="user"></span>
-                    پروفایل
-                </a>
-            </li>
-        </ul>
+<div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
+    <div class="sidebar-brand d-none d-md-flex">
+        <img src="/static/images/logo.png" class="sidebar-brand-full" width="220" alt="apk Logo">
     </div>
-</nav>
+    <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
+        <li class="nav-item"><a class="nav-link" href="/dashboard">
+            <i class="mdi mdi-laptop"></i> داشبورد</a></li>
+        <li class="nav-title">کاربران</li>
+        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+            <i class="mdi mdi-account-multiple"></i> مدیریت کاربران</a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" href="/users/new"><span class="nav-icon"></span> افزودن
+                    جدید</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

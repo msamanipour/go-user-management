@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html dir="rtl" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>سامانه مدیریت کاربران - {{.title}}</title>
-    {{include "layouts/head" }}
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>شرکت امن پردازان کویر - {{ .title }}</title>
+    <link href="/static/css/style.min.css" rel="stylesheet">
+    <link href="/static/css/icons.css" rel="stylesheet">
 </head>
 <body>
-    {{include "partials/navbar"}}
-    {{template "content" .}}
-    {{include "layouts/footer"}}
-</body>
-<script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
-<script src="/static/js/feather.min.js"></script>
+{{ include "partials/rightMenu" }}
+<div class="wrapper d-flex flex-column min-vh-100 bg-light">
+    {{ include "partials/navbar" }}
+    <div class="body flex-grow-1 px-3">
+        {{template "content" .}}
+    </div>
+    {{ include "layouts/footer" }}
+</div>
+<script src="/static/js/coreui.bundle.min.js"></script>
 <script src="/static/js/form-validation.js"></script>
+<script src="/static/js/simplebar.min.js"></script>
+
+</body>
 </html>
