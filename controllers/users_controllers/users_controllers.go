@@ -23,6 +23,10 @@ func getUserId(uIdParam string) (int64, *errors.RestErr) {
 	return userId, nil
 }
 
+func Index(c *gin.Context) {
+	c.Redirect(http.StatusFound, config.LoginUrl)
+}
+
 func Login(c *gin.Context) {
 	c.HTML(http.StatusOK, "pages/login", gin.H{
 		"title": config.TitleLogin,
@@ -36,12 +40,14 @@ func LoginPost(c *gin.Context) {
 	if err == nil {
 		session_utils.SetSession(c.Writer, c.Request, config.LoginSessionName, "/", uuid.NewV4().String())
 		session_utils.SetSession(c.Writer, c.Request, "session_info", "/", crypto_utils.Base64Encode(strconv.FormatInt(result.Id, 10)))
+		c.Redirect(http.StatusFound, config.DashboardUrl)
+	} else {
+		c.HTML(http.StatusOK, "pages/login", gin.H{
+			"title":  config.TitleLogin,
+			"result": result,
+			"err":    err,
+		})
 	}
-	c.HTML(http.StatusOK, "pages/login", gin.H{
-		"title":  config.TitleLogin,
-		"result": result,
-		"err":    err,
-	})
 }
 
 func Dashboard(c *gin.Context) {

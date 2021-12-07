@@ -6,7 +6,7 @@ import (
 )
 
 func mapUrls() {
-	router.GET("/", users_controllers.Login)
+	router.GET("/", users_controllers.Index)
 	// guest routes
 	guested := router.Group("/")
 	guested.Use(auth.Guest)
