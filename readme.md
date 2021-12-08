@@ -2,7 +2,7 @@
 
 ### Features
 
-- User management
+- User management - CURD
 - Mysql database
 - Registration, authorization, role manager
 - Use middleware for authenticate and permissions
