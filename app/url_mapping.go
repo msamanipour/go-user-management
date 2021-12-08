@@ -23,6 +23,7 @@ func mapUrls() {
 		authed.GET("users/new", users_controllers.New)
 		authed.POST("users/new", users_controllers.NewPost)
 		authed.GET("users/edit/:user_id", users_controllers.Edit)
+		authed.GET("users/delete/:user_id", users_controllers.Delete)
 		authed.POST("users/edit/:user_id", users_controllers.EditPost)
 	}
 }

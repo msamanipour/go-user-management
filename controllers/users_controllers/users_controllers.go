@@ -112,3 +112,9 @@ func EditPost(c *gin.Context) {
 		"user_id": uint(user.Id),
 	})
 }
+
+func Delete(c *gin.Context) {
+	userId, _ := getUserId(c.Param("user_id"))
+	_ = services.UsersService.DeleteUser(userId)
+	c.Redirect(http.StatusFound, config.DashboardUrl)
+}

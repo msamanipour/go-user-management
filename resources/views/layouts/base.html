@@ -10,14 +10,8 @@
     <link href="/static/css/icons.css" rel="stylesheet">
 </head>
 <body>
-{{ include "partials/rightMenu" }}
-<div class="wrapper d-flex flex-column min-vh-100 bg-light">
-    {{ include "partials/navbar" }}
-    <div class="body flex-grow-1 px-3">
-        {{template "content" .}}
-    </div>
-    {{ include "layouts/footer" }}
-</div>
+{{template "content" .}}
+{{ include "layouts/footer" }}
 <script src="/static/js/coreui.bundle.min.js"></script>
 <script src="/static/js/form-validation.js"></script>
 <script src="/static/js/simplebar.min.js"></script>

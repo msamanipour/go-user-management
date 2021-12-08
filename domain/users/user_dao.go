@@ -42,7 +42,7 @@ func (u *User) Get() *errors.RestErr {
 
 func (u *User) AllUsers() ([]User, *errors.RestErr) {
 	var users []User
-	result := users_db.Client.Order("id desc").Find(&users)
+	result := users_db.Client.Where("id != ?", "1").Order("id desc").Find(&users)
 	if result.Error != nil || result.RowsAffected <= 0 {
 		return nil, errors.NewNotFoundError(config.MessageUserNotFound)
 	}
@@ -69,4 +69,22 @@ func (u *User) Update() *errors.RestErr {
 		return errors.NewInternalServerError(config.MessageErr)
 	}
 	return errors.NewSuccessMessage(config.MessageSuccessEditUser)
+}
+
+func (u *User) Delete() *errors.RestErr {
+	oldRole, err := authority_utils.Auth.GetUserRoles(uint(u.Id))
+	if err != nil {
+		logger.Error("error in get user role", err)
+		return nil
+	}
+	reErr := authority_utils.Auth.RevokeRole(uint(u.Id), oldRole[0])
+	if reErr != nil {
+		logger.Error("error in revoke role", reErr)
+		return errors.NewInternalServerError(config.MessageErr)
+	}
+	result := users_db.Client.Delete(&u)
+	if result.Error != nil {
+		return errors.NewNotFoundError(config.MessageErr)
+	}
+	return errors.NewSuccessMessage(config.MessageSuccessDeleteUser)
 }

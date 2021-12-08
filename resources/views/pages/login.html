@@ -1,17 +1,49 @@
 {{define "head"}}{{end}}
 
 {{define "content"}}
-<div class="container">
-    <div class="mx-auto">
-        <form class="form-signin" method="post" action="">
-            <img class="mb-4" src="/static/images/logo.png" width="100%" alt="">
-            {{ include "partials/alerts" }}
-            <label for="username">نام کاربری</label>
-            <input type="text" id="username" name="username" class="form-control" required autofocus>
-            <label for="password">رمزعبور</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="********" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">ورود</button>
-        </form>
+<!--/static/images/logo.png-->
+
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card-group d-block d-md-flex row">
+                    <div class="card col-md-7 p-4 mb-0">
+                        <div class="card-body">
+                            <form action="" method="post">
+                                <h1>ورود</h1>
+                                <p class="text-medium-emphasis">برای وارد شدن نام کاربری و رمزعبور خود را وارد کنید</p>
+                                {{ include "partials/alerts" }}
+                                <div class="input-group mb-3"><span class="input-group-text">
+                      <i class="mdi mdi-account"></i></span>
+                                    <input class="form-control" type="text" placeholder="نام کاربری" name="username"
+                                           id="username">
+                                </div>
+                                <div class="input-group mb-4"><span class="input-group-text">
+                      <i class="mdi mdi-lock"></i></span>
+                                    <input class="form-control" type="password" placeholder="رمزعبور" name="password"
+                                           id="password">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-primary px-4" type="submit">ورود</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card col-md-5 text-white bg-primary py-5">
+                        <div class="card-body text-center">
+                            <div class="mt-5">
+                                <h2>سامانه مدیریت کاربران</h2>
+                                <p>در این سامانه میتوانید کاربران خود را مدیریت کنید و امکان تغییر رمز عبور و سطح دسترسی
+                                    هرکاربر نیز فراهم می باشد</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

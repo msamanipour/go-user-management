@@ -1,74 +1,84 @@
 {{define "head"}}{{end}}
 
 {{define "content"}}
-<div class="body flex-grow-1 px-3">
-    <div class="container-lg">
-        <div class="card mb-4">
-            <div class="card-header">ویرایش کاربر</div>
-            <div class="card-body">
-                {{ include "partials/alerts" }}
-                <form class="needs-validation" method="post" novalidate>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label">نام</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="" value="{{ .result.Name }}" required>
-                            <div class="invalid-feedback">
-                                نام الزامی است
+{{ include "partials/rightMenu" }}
+<div class="wrapper d-flex flex-column min-vh-100 bg-light">
+    {{ include "partials/navbar" }}
+    <div class="body flex-grow-1 px-3">
+        <div class="container-lg">
+            <div class="card mb-4">
+                <div class="card-header">ویرایش کاربر</div>
+                <div class="card-body">
+                    {{ include "partials/alerts" }}
+                    <form class="needs-validation" method="post" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">نام</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder=""
+                                       value="{{ .result.Name }}" required>
+                                <div class="invalid-feedback">
+                                    نام الزامی است
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="family" class="form-label">نام خانوادگی</label>
+                                <input type="text" class="form-control" id="family" name="family" placeholder=""
+                                       value="{{ .result.Family }}"
+                                       required>
+                                <div class="invalid-feedback">
+                                    نام خانوادگی الزامی است
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="family" class="form-label">نام خانوادگی</label>
-                            <input type="text" class="form-control" id="family" name="family" placeholder="" value="{{ .result.Family }}"
-                                   required>
-                            <div class="invalid-feedback">
-                                نام خانوادگی الزامی است
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="username" class="form-label">نام کاربری</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="" value="{{ .result.Username }}"
-                                   required>
-                            <div class="invalid-feedback">
-                                نام کاربری الزامی است
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="username" class="form-label">نام کاربری</label>
+                                <input type="text" class="form-control" id="username" name="username" placeholder=""
+                                       value="{{ .result.Username }}"
+                                       required>
+                                <div class="invalid-feedback">
+                                    نام کاربری الزامی است
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label">رمزعبور</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder=""
+                                       value="">
+                                <small class="float-right">در صورتی که نیاز به تغییر رمزعبور ندارید این گزینه را خالی
+                                    بگذارید</small>
+                                <div class="invalid-feedback">
+                                    رمزعبور الزامی است | باید حداقل 8 رقم باشد
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="password" class="form-label">رمزعبور</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder=""
-                                   value="">
-                            <small class="float-right">در صورتی که نیاز به تغییر رمزعبور ندارید این گزینه را خالی بگذارید</small>
-                            <div class="invalid-feedback">
-                                رمزعبور الزامی است | باید حداقل 8 رقم باشد
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="role" class="form-label">سطح دسترسی</label>
-                            <select class="form-select d-block w-100" id="role" name="role" required>
-                                <option selected disabled value>انتخاب کنید</option>
-                                {{ $roles := GAuth.GetRoles }}
-                                {{ $id := .user_id }}
-                                {{range $index , $val := $roles }}
-                                <option value="{{$val}}" {{ if GAuth.CheckRole $id $val }}selected{{ end }}>{{$val}}</option>
-                                {{ end }}
-                            </select>
-                            <div class="invalid-feedback">
-                                سطح دسترسی را انتخاب کنید
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="role" class="form-label">سطح دسترسی</label>
+                                <select class="form-select d-block w-100" id="role" name="role" required>
+                                    <option selected disabled value>انتخاب کنید</option>
+                                    {{ $roles := GAuth.GetRoles }}
+                                    {{ $id := .user_id }}
+                                    {{range $index , $val := $roles }}
+                                    <option value="{{$val}}" {{ if GAuth.CheckRole $id $val }}selected{{ end }}>
+                                        {{$val}}
+                                    </option>
+                                    {{ end }}
+                                </select>
+                                <div class="invalid-feedback">
+                                    سطح دسترسی را انتخاب کنید
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <input type="hidden" name="id" value="{{ $id }}">
-                        <div class="col-lg-12">
-                            <button class="btn btn-primary" type="submit">ویرایش کاربر</button>
+                        <div class="row">
+                            <input type="hidden" name="id" value="{{ $id }}">
+                            <div class="col-lg-12">
+                                <button class="btn btn-primary" type="submit">ویرایش کاربر</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

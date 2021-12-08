@@ -18,6 +18,7 @@ type usersServiceInterface interface {
 	GetUser(int64) (*users.User, *errors.RestErr)
 	GetUsers() ([]users.User, *errors.RestErr)
 	EditUser(user users.User) *errors.RestErr
+	DeleteUser(userId int64) *errors.RestErr
 }
 
 func (s *usersService) GetLogin(username string, password string) (*users.User, *errors.RestErr) {
@@ -65,6 +66,14 @@ func (s *usersService) EditUser(user users.User) *errors.RestErr {
 	}
 
 	if err := user.Update(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *usersService) DeleteUser(userId int64) *errors.RestErr {
+	result := &users.User{Id: userId}
+	if err := result.Delete(); err != nil {
 		return err
 	}
 	return nil

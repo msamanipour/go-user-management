@@ -14,4 +14,5 @@ const (
 	MessageUserNotFound      = "هیچ کاربری یافت نشد"
 	MessageRecordNotFound    = "هیچ ردیفی یافت نشد"
 	MessageSuccessEditUser   = "کاربر با موفقیت ویرایش شد"
+	MessageSuccessDeleteUser = "کاربر با موفقیت حذف شد"
 )
