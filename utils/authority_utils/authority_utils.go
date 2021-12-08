@@ -21,11 +21,13 @@ func Implement() {
 	_ = Auth.CreatePermission("user-create")
 	_ = Auth.CreatePermission("user-delete")
 	_ = Auth.CreatePermission("user-edit")
+	_ = Auth.CreatePermission("role-manager")
 
 	_ = Auth.AssignPermissions("admin", []string{
 		"user-create",
 		"user-delete",
 		"user-edit",
+		"role-manager",
 	})
 	_ = Auth.AssignPermissions("users-manager", []string{
 		"user-create",

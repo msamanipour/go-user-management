@@ -62,7 +62,10 @@ func (s *usersService) GetUsers() ([]users.User, *errors.RestErr) {
 }
 
 func (s *usersService) EditUser(user users.User) *errors.RestErr {
-	if user.Password != "" {
+	current, _ := s.GetUser(user.Id)
+	if user.Password == "" {
+		user.Password = current.Password
+	} else {
 		user.Password = crypto_utils.GetMd5(user.Password)
 	}
 	if err := user.Validate(true); err != nil {

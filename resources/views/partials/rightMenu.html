@@ -15,8 +15,10 @@
             </ul>
         </li>
         {{ end }}
+        {{ if GAuth.CheckPermission (GUint GUser.Id) "role-manager"  }}
         <li class="nav-item"><a class="nav-link" href="/roles/manage">
             <i class="mdi mdi-key-change"></i>
              مدیریت دسترسی ها</a></li>
+        {{end}}
     </ul>
 </div>

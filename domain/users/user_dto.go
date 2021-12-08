@@ -1,6 +1,9 @@
 package users
 
 import (
+	"go-apk-users/datasources/mysql/users_db"
+	"go-apk-users/utils/authority_utils"
+	"go-apk-users/utils/crypto_utils"
 	"go-apk-users/utils/errors"
 	"strings"
 	"time"
@@ -15,6 +18,31 @@ type User struct {
 	UpdatedAt time.Time `json:"updated_at" gorm:"updated_at"`
 	Password  string    `json:"password" gorm:"password" form:"password"`
 	Role      string    `json:"role" form:"role"`
+}
+
+func Init() {
+	MiErr := users_db.Client.AutoMigrate(&User{})
+	if MiErr != nil {
+		panic(MiErr)
+	}
+	defUser := User{
+		Id:        1,
+		Name:      "محمد",
+		Family:    "سامانی پور",
+		Username:  "admin",
+		CreatedAt: time.Time{},
+		UpdatedAt: time.Time{},
+		Password:  crypto_utils.GetMd5("123456"),
+	}
+	if users_db.Client.Select(&defUser).Error != nil {
+		users_db.Client.Create(&defUser)
+	}
+	if res, _ := authority_utils.Auth.CheckRole(uint(1), "admin"); !res {
+		err := authority_utils.Auth.AssignRole(uint(1), "admin")
+		if err != nil {
+			panic(err)
+		}
+	}
 }
 
 type Users []User

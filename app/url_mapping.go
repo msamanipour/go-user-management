@@ -30,10 +30,10 @@ func mapUrls() {
 		authed.GET("users/profile", users_controllers.Profile)
 		authed.POST("users/profile", users_controllers.ProfilePost)
 		//roles routes
-		authed.GET("roles/manage", roles_controllers.Manage)
-		authed.GET("roles/edit/:role_name", roles_controllers.Edit)
-		authed.POST("roles/edit/:role_name", roles_controllers.EditPost)
-		authed.GET("roles/new", roles_controllers.New)
-		authed.POST("roles/new", roles_controllers.NewPost)
+		authed.GET("roles/manage", auth.Permission("role-manager"), roles_controllers.Manage)
+		authed.GET("roles/edit/:role_name", auth.Permission("role-manager"), roles_controllers.Edit)
+		authed.POST("roles/edit/:role_name", auth.Permission("role-manager"), roles_controllers.EditPost)
+		authed.GET("roles/new", auth.Permission("role-manager"), roles_controllers.New)
+		authed.POST("roles/new", auth.Permission("role-manager"), roles_controllers.NewPost)
 	}
 }
