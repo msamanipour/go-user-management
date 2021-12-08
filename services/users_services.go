@@ -1,6 +1,7 @@
 package services
 
 import (
+	"go-apk-users/app/config"
 	"go-apk-users/domain/users"
 	"go-apk-users/utils/crypto_utils"
 	"go-apk-users/utils/errors"
@@ -8,6 +9,7 @@ import (
 
 var (
 	UsersService usersServiceInterface = &usersService{}
+	UserInfo     *users.User
 )
 
 type usersService struct{}
@@ -19,6 +21,7 @@ type usersServiceInterface interface {
 	GetUsers() ([]users.User, *errors.RestErr)
 	EditUser(user users.User) *errors.RestErr
 	DeleteUser(userId int64) *errors.RestErr
+	ProfileEdit(userId int64, password string, rePassword string) *errors.RestErr
 }
 
 func (s *usersService) GetLogin(username string, password string) (*users.User, *errors.RestErr) {
@@ -32,6 +35,7 @@ func (s *usersService) GetLogin(username string, password string) (*users.User, 
 	if err := result.Login(); err != nil {
 		return nil, err
 	}
+	UserInfo = result
 	return result, nil
 }
 
@@ -65,7 +69,7 @@ func (s *usersService) EditUser(user users.User) *errors.RestErr {
 		return err
 	}
 
-	if err := user.Update(); err != nil {
+	if err := user.Update(false); err != nil {
 		return err
 	}
 	return nil
@@ -77,4 +81,18 @@ func (s *usersService) DeleteUser(userId int64) *errors.RestErr {
 		return err
 	}
 	return nil
+}
+
+func (s *usersService) ProfileEdit(userId int64, password string, rePassword string) *errors.RestErr {
+	if password == rePassword {
+		result := &users.User{
+			Id:       userId,
+			Password: crypto_utils.GetMd5(password),
+		}
+		err := result.Update(true)
+		return err
+	} else {
+		return errors.NewBadRequestError(config.MessageErrorPassword)
+	}
+
 }

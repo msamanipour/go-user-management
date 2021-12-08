@@ -118,3 +118,18 @@ func Delete(c *gin.Context) {
 	_ = services.UsersService.DeleteUser(userId)
 	c.Redirect(http.StatusFound, config.DashboardUrl)
 }
+
+func Profile(c *gin.Context) {
+	c.HTML(http.StatusOK, "pages/users/profile", gin.H{
+		"title": config.TitleProfile,
+	})
+}
+
+func ProfilePost(c *gin.Context) {
+	err := services.UsersService.ProfileEdit(services.UserInfo.Id, c.PostForm("password"), c.PostForm("re_password"))
+	c.HTML(http.StatusOK, "pages/users/profile", gin.H{
+		"title": config.TitleProfile,
+		"err":   err,
+	})
+
+}

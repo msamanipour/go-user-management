@@ -4,7 +4,8 @@ const (
 	TitleLogin     = "ورود"
 	TitleDashboard = "داشبورد"
 	TitleAddUser   = "افزودن کاربر جدید"
-	TitleEditUser  = "افزودن کاربر جدید"
+	TitleEditUser  = "ویرایش کاربر"
+	TitleProfile   = "ویرایش کاربر"
 
 	MessageErr               = "مشکلی در ثبت اطلاعات وجود دارد"
 	MessageBadFormRequest    = "قالب درخواست صحیح نیست"
@@ -15,4 +16,5 @@ const (
 	MessageRecordNotFound    = "هیچ ردیفی یافت نشد"
 	MessageSuccessEditUser   = "کاربر با موفقیت ویرایش شد"
 	MessageSuccessDeleteUser = "کاربر با موفقیت حذف شد"
+	MessageErrorPassword     = "رمزعبور با تکرار آن برابر نیست"
 )

@@ -7,12 +7,15 @@
         <ul class="header-nav d-none d-md-flex">
             <li class="nav-item"><a class="nav-link" href="#">صفحه اصلی</a></li>
         </ul>
-        <ul class="header-nav ms-auto"></ul>
+        <ul class="header-nav ms-auto">
+            <li>{{ GUser.Name }} {{ GUser.Family }}</li>
+        </ul>
         <ul class="header-nav ms-3">
             <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button"
                                              aria-haspopup="true" aria-expanded="false">
-                <div class="avatar avatar-md"><img class="avatar-img" src="/static/images/default-profile.jpg"
-                                                   alt="user@email.com"></div>
+                <div class="avatar avatar-md">
+                    <img class="avatar-img" src="/static/images/default-profile.jpg">
+                </div>
             </a>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
                     <div class="dropdown-header bg-light py-2">

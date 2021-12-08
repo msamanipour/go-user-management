@@ -1,0 +1,45 @@
+{{define "head"}}{{end}}
+
+{{define "content"}}
+{{ include "partials/rightMenu" }}
+<div class="wrapper d-flex flex-column min-vh-100 bg-light">
+    {{ include "partials/navbar" }}
+    <div class="body flex-grow-1 px-3">
+        <div class="container-lg">
+            <div class="card mb-4">
+                <div class="card-header">ویرایش پروفایل</div>
+                <div class="card-body">
+                    {{ include "partials/alerts" }}
+                    <form class="needs-validation" method="post" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label">رمزعبور</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder=""
+                                       value="">
+                                <div class="invalid-feedback">
+                                    باید حداقل 8 رقم باشد
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="re_password" class="form-label">تکرار رمزعبور</label>
+                                <input type="password" class="form-control" id="re_password" name="re_password" placeholder=""
+                                       value="">
+                                <div class="invalid-feedback">
+                                    باید حداقل 8 رقم باشد
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <input type="hidden" name="id" value="{{ GUser.Id }}">
+                            <div class="col-lg-12">
+                                <button class="btn btn-primary float-end" type="submit">ویرایش پروفایل</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

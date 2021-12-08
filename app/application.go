@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/harranali/authority"
 	"go-apk-users/domain/users"
+	"go-apk-users/services"
 	"go-apk-users/utils/authority_utils"
 	"html/template"
 	"log"
@@ -17,17 +18,23 @@ var (
 func StartApplication() {
 	router.Static("/static", "./resources/assets")
 	router.HTMLRender = gintemplate.New(gintemplate.TemplateConfig{
-		Root:      "resources/views",
-		Extension: ".html",
-		Master:    "layouts/base",
-		//Partials:  []string{"partials/ad"},
+		Root:         "resources/views",
+		Extension:    ".html",
+		Master:       "layouts/base",
 		DisableCache: true,
 		Funcs: template.FuncMap{
 			"GAuth": func() *authority.Authority {
 				return authority_utils.Auth
 			},
 			"GUser": func() *users.User {
-				return nil
+				if services.UserInfo != nil {
+					return services.UserInfo
+				}
+				return &users.User{
+					Id:     0,
+					Name:   "",
+					Family: "",
+				}
 			},
 		},
 	})
