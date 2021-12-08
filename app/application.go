@@ -31,10 +31,21 @@ func StartApplication() {
 					return services.UserInfo
 				}
 				return &users.User{
-					Id:     0,
+					Id:     1,
 					Name:   "",
 					Family: "",
 				}
+			},
+			"GUint": func(val int64) uint {
+				return uint(val)
+			},
+			"GContain": func(s []string, str string) bool {
+				for _, v := range s {
+					if v == str {
+						return true
+					}
+				}
+				return false
 			},
 		},
 	})

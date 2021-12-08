@@ -29,11 +29,9 @@ func Implement() {
 	})
 	_ = Auth.AssignPermissions("users-manager", []string{
 		"user-create",
-		"user-delete",
 		"user-edit",
 	})
 	_ = Auth.AssignPermissions("users-supervisor", []string{
 		"user-create",
-		"user-edit",
 	})
 }

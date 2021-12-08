@@ -5,6 +5,7 @@
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
         <li class="nav-item"><a class="nav-link" href="/dashboard">
             <i class="mdi mdi-laptop"></i> داشبورد</a></li>
+        {{ if GAuth.CheckPermission (GUint GUser.Id) "user-create" }}
         <li class="nav-title">کاربران</li>
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
             <i class="mdi mdi-account-multiple"></i> مدیریت کاربران</a>
@@ -13,5 +14,9 @@
                     جدید</a></li>
             </ul>
         </li>
+        {{ end }}
+        <li class="nav-item"><a class="nav-link" href="/roles/manage">
+            <i class="mdi mdi-key-change"></i>
+             مدیریت دسترسی ها</a></li>
     </ul>
 </div>

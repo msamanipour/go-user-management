@@ -1,0 +1,35 @@
+{{define "head"}}{{end}}
+
+{{define "content"}}
+{{ include "partials/rightMenu" }}
+<div class="wrapper d-flex flex-column min-vh-100 bg-light">
+    {{ include "partials/navbar" }}
+    <div class="body flex-grow-1 px-3">
+        <div class="container-lg">
+            <div class="card mb-4">
+                <div class="card-header">اضافه کردن نقش جدید</div>
+                <div class="card-body">
+                    {{ include "partials/alerts" }}
+                    <form class="needs-validation" method="post" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">نام</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="یک نام انگلیسی وارد کنید"
+                                       value="" required>
+                                <div class="invalid-feedback">
+                                    نام الزامی است
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button class="btn btn-primary float-end" type="submit">اضافه کردن نقش</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
