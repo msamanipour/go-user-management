@@ -23,3 +23,6 @@
 go run main.go
 ```
 * Database tables is auto migrate
+* Default login info :
+* username : admin
+* password : 123456
