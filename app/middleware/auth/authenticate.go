@@ -6,10 +6,12 @@ import (
 	"go-apk-users/services"
 	"go-apk-users/utils/authority_utils"
 	"go-apk-users/utils/session_utils"
+	"log"
 	"net/http"
 )
 
 func Logged(c *gin.Context) {
+	log.Println("middleware")
 	if res := session_utils.CheckSession(c.Request, "session_token"); res == false {
 		c.Redirect(http.StatusFound, config.LoginUrl)
 	}

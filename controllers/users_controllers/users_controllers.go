@@ -10,6 +10,7 @@ import (
 	"go-apk-users/utils/errors"
 	"go-apk-users/utils/logger"
 	"go-apk-users/utils/session_utils"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -126,6 +127,7 @@ func Profile(c *gin.Context) {
 }
 
 func ProfilePost(c *gin.Context) {
+	log.Println("controller")
 	err := services.UsersService.ProfileEdit(services.UserInfo.Id, c.PostForm("password"), c.PostForm("re_password"))
 	c.HTML(http.StatusOK, "pages/users/profile", gin.H{
 		"title": config.TitleProfile,
